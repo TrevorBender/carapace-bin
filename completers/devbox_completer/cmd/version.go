@@ -8,11 +8,31 @@ import (
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print version information",
-	Run:   func(cmd *cobra.Command, args []string) {},
+	Args:  cobra.NoArgs,
 }
 
 func init() {
 	carapace.Gen(versionCmd).Standalone()
-	versionCmd.Flags().BoolP("verbose", "v", false, "Verbose: displays additional version information")
 	rootCmd.AddCommand(versionCmd)
+	versionCmd.Flags().BoolP("verbose", "v", false, "displays additional version information")
+
+	// Make this flag hidden because:
+	// This functionality doesn't strictly belong in this versionCmd, but we add it here
+	// since `devbox version update` calls `devbox version -v` to trigger an update.
+	versionCmd.Flags().BoolP("update-devbox-symlink", "u", false, // value
+		"update the devbox symlink to point to the current binary",
+	)
+	_ = versionCmd.Flags().MarkHidden("update-devbox-symlink")
+
+	versionCmd.AddCommand(selfUpdateCmd())
+}
+
+func selfUpdateCmd() *cobra.Command {
+	command := &cobra.Command{
+		Use:   "update",
+		Short: "Update devbox launcher and binary",
+		Args:  cobra.ExactArgs(0),
+	}
+
+	return command
 }

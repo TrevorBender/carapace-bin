@@ -6,7 +6,7 @@ import (
 )
 
 var initCmd = &cobra.Command{
-	Use:   "init",
+	Use:   "init [<dir>]",
 	Short: "Initialize a directory as a devbox project",
 	Run:   func(cmd *cobra.Command, args []string) {},
 }

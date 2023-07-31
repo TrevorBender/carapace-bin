@@ -8,7 +8,7 @@ import (
 )
 
 var rmCmd = &cobra.Command{
-	Use:   "rm",
+	Use:   "rm <pkg>...",
 	Short: "Remove a package from your devbox",
 	Run:   func(cmd *cobra.Command, args []string) {},
 }

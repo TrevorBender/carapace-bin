@@ -1,0 +1,13 @@
+{
+  "packages": [
+    "go_1_19@latest"
+  ],
+  "shell": {
+    "scripts": {
+      "build": [
+        "go generate ./cmd/carapace/...",
+        "go build -o carapace ./cmd/carapace/main.go"
+      ]
+    }
+  }
+}
